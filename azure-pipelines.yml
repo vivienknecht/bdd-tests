@@ -23,11 +23,12 @@ steps:
   continueOnError: true
 
 - script: |
-    mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run \
-      -DreportFiles="**/target/surefire-reports/*.xml" \
-      -DfeatureFiles="**/src/test/resources/calculator_features/*.feature" \
-      -Dframework="cucumber-jvm" \
-      -DresultFile="target/surefire-reports/cucumber-jvm-result.xml"
+    echo "Converting BDD results..."
+    mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run ^
+      "-DreportFiles=**/target/surefire-reports/*.xml" ^
+      "-DfeatureFiles=**/src/test/resources/calculator_features/*.feature" ^
+      "-Dframework=cucumber-jvm" ^
+      "-DresultFile=target/surefire-reports/cucumber-jvm-result.xml"
   displayName: 'Convert BDD Results'
 
 - task: octane-end-task-private@1
