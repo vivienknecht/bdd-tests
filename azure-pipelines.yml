@@ -9,10 +9,10 @@ trigger:
 pool: Default
 
 steps:
-- task: octane-start-task@25
+- task: octane-start-task-private@1
   inputs:
-    OctaneServiceConnection: 'bddOctaneConnection'
-    WorkspaceList: '4002'
+    OctaneServiceConnection: 'bddPConnection'
+    WorkspaceList: '4001'
     CreatePipelineCheckbox: true
 
 - task: Maven@4
@@ -32,8 +32,8 @@ steps:
     echo 
   displayName: 'Convert BDD Results'
 
-- task: octane-end-task@25
+- task: octane-end-task-private@1
   inputs:
-    OctaneServiceConnection: 'bddOctaneConnection'
-    WorkspaceList: '4002'
+    OctaneServiceConnection: 'bddPConnection'
+    WorkspaceList: '4001'
     CucumberReportPath: 'target/surefire-reports'
