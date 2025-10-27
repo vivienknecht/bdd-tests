@@ -36,4 +36,4 @@ steps:
   inputs:
     OctaneServiceConnection: 'bddOctaneConnection'
     WorkspaceList: '4002'
-    CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xml'
+    CucumberReportPath: 'target/surefire-reports'
