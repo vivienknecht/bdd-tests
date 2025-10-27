@@ -1,0 +1,57 @@
+name: MANUAL - Automated Runs Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      testsToRun:
+        description: 'Tests to run (Octane)'
+        required: true
+        default: 'v1:com.example.app|CalculatorApp|Approve2222|runId=4174127|featureFilePath=src\test\resources\F1\test_1001.feature;com.example.app|CalculatorApp|numberStatus|runId=4174128|featureFilePath=src\test\resources\F1\test_1001.feature'
+      suiteRunId:
+        description: 'Suite Run Id (Octane)'
+        required: true
+        default: '0'
+      executionId:
+        description: 'Execution Id (Octane)'
+        required: true
+        default: '0'
+      suiteId:
+        description: 'Suite Id (Octane)'
+        required: true
+        default: '0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Log workflow inputs for Octane
+      run: |
+        echo "execution_parameter:: $(echo '${{ toJson(github.event.inputs) }}' | jq -c .)"
+    - uses: actions/checkout@v4
+    - name: Convert testsToRun parameter
+      id: convert_tests
+      run: |
+        # Run the npx command and capture its output
+        output=$(npx tests-to-run-conversion-tool --framework="bddScenario" --testsToRun="${{ github.event.inputs.testsToRun }}" --logLevel=0)
+        
+        # Set the output so it can be used in subsequent steps
+        echo "converted_tests=$output" >> $GITHUB_ENV
+    - name: Print converted testsToRun
+      run: |
+        echo "Converted testsToRun value: $converted_tests"
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Run JUnit Tests
+      run: mvn test "-Dcucumber.options=$converted_tests"
+      continue-on-error: true
+    - name: Convert BDD test results
+      run: mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run -DreportFiles="**/target/surefire-reports/*.xml" -DfeatureFiles="**/src/test/resources/calculator_features/*.feature" -Dframework="cucumber-jvm" -DresultFile="target/surefire-reports/cucumber-jvm-result.xml"
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: junit-test-report
+        path: target/surefire-reports/cucumber-*.xml
+       

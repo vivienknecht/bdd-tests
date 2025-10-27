@@ -1,0 +1,45 @@
+name: CI ONLY - Single Job Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      parameter_user:
+        description: 'Username'
+        required: true
+        default: 'test_user'
+      parameter_age:
+        description: 'Your age'
+        required: true
+        default: '100'
+      testsToRun:
+        description: 'Tests to run'
+        required: false
+        default: 'testAdd_whenPositiveNumbers,testAdd_whenNegativeNumbers'
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: junit-test-report
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done

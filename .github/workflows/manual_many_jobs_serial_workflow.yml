@@ -1,0 +1,815 @@
+name: MANUAL - Many Jobs Serial Workflow
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build-1:
+    runs-on: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-1
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-2:
+    runs-on: [ubuntu-latest]
+    needs: build-1
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-2
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-3:
+    runs-on: [ubuntu-latest]
+    needs: build-2
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-3
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-4:
+    runs-on: [ubuntu-latest]
+    needs: build-3
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-4
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-5:
+    runs-on: [ubuntu-latest]
+    needs: build-4
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-5
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-6:
+    runs-on: [ubuntu-latest]
+    needs: build-5
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-6
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-7:
+    runs-on: [ubuntu-latest]
+    needs: build-6
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-7
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-8:
+    runs-on: [ubuntu-latest]
+    needs: build-7
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-8
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-9:
+    runs-on: [ubuntu-latest]
+    needs: build-8
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-9
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-10:
+    runs-on: [ubuntu-latest]
+    needs: build-9
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-10
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-11:
+    runs-on: [ubuntu-latest]
+    needs: build-10
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-11
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-12:
+    runs-on: [ubuntu-latest]
+    needs: build-11
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-12
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-13:
+    runs-on: [ubuntu-latest]
+    needs: build-12
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-13
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-14:
+    runs-on: [ubuntu-latest]
+    needs: build-13
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-14
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-15:
+    runs-on: [ubuntu-latest]
+    needs: build-14
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-15
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-16:
+    runs-on: [ubuntu-latest]
+    needs: build-15
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-16
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-17:
+    runs-on: [ubuntu-latest]
+    needs: build-16
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-17
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-18:
+    runs-on: [ubuntu-latest]
+    needs: build-17
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-18
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-19:
+    runs-on: [ubuntu-latest]
+    needs: build-18
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-19
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-20:
+    runs-on: [ubuntu-latest]
+    needs: build-19
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-20
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-21:
+    runs-on: [ubuntu-latest]
+    needs: build-20
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-21
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-22:
+    runs-on: [ubuntu-latest]
+    needs: build-21
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-22
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-23:
+    runs-on: [ubuntu-latest]
+    needs: build-22
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-23
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-24:
+    runs-on: [ubuntu-latest]
+    needs: build-23
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-24
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-25:
+    runs-on: [ubuntu-latest]
+    needs: build-24
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-25
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-26:
+    runs-on: [ubuntu-latest]
+    needs: build-25
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-26
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-27:
+    runs-on: [ubuntu-latest]
+    needs: build-26
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-27
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-28:
+    runs-on: [ubuntu-latest]
+    needs: build-27
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-28
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-29:
+    runs-on: [ubuntu-latest]
+    needs: build-28
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-29
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
+  
+  build-30:
+    runs-on: [ubuntu-latest]
+    needs: build-29
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Run JUnit Tests
+      run: mvn test
+    - name: Archive JUnit Test Report
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: junit-test-report-30
+        path: target/surefire-reports/*.xml
+    - name: Stage
+      run: mkdir staging && cp target/*.jar staging
+    - name: Run JAR files
+      run: |
+        for jar_file in staging/*.jar; do
+          mvn exec:java -Dexec.mainClass=me.opopescu.test_octane_github_actions.Main -Dexec.args=""
+        done
