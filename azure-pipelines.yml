@@ -29,10 +29,11 @@ steps:
       "-DfeatureFiles=**/src/test/resources/calculator_features/*.feature" ^
       "-Dframework=cucumber-jvm" ^
       "-DresultFile=target/surefire-reports/cucumber-jvm-result.xml"
+    echo 
   displayName: 'Convert BDD Results'
 
 - task: octane-end-task@25
   inputs:
     OctaneServiceConnection: 'bddOctaneConnection'
     WorkspaceList: '4002'
-    CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xm'
+    CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xml'
