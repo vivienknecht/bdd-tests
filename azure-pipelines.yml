@@ -15,15 +15,23 @@ steps:
     WorkspaceList: '4001'
     CreatePipelineCheckbox: true
 
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean test'
+    publishJUnitResults: false
+  continueOnError: true
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run \
+      -DreportFiles="**/target/surefire-reports/*.xml" \
+      -DfeatureFiles="**/src/test/resources/calculator_features/*.feature" \
+      -Dframework="cucumber-jvm" \
+      -DresultFile="target/surefire-reports/cucumber-jvm-result.xml"
+  displayName: 'Convert BDD Results'
 
 - task: octane-end-task-private@1
   inputs:
     OctaneServiceConnection: 'bddPConnection'
     WorkspaceList: '4001'
+    CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xml'
