@@ -9,6 +9,12 @@ trigger:
 pool: Default
 
 steps:
+- task: octane-start-task-private@1
+  inputs:
+    OctaneServiceConnection: 'bddPConnection'
+    WorkspaceList: '4001'
+    CreatePipelineCheckbox: true
+
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
@@ -16,3 +22,8 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: octane-end-task-private@1
+  inputs:
+    OctaneServiceConnection: 'bddPConnection'
+    WorkspaceList: '4001'
