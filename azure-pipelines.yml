@@ -42,5 +42,5 @@ steps:
   inputs:
     OctaneServiceConnection: 'AzurePipelinesServiceConnection'
     WorkspaceList: '5001'
-    Framework: 'cucumber'
+    Framework: 'bddScenario'
     CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xml'
