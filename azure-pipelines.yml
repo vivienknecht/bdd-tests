@@ -25,7 +25,7 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'clean test'
-    publishJUnitResults: false
+    publishJUnitResults: true
     options: '-Dcucumber.options="--plugin com.hpe.alm.octane.OctaneCucumberFormatter:results/cucumber/Cucumber.xml"'
   continueOnError: true
 
