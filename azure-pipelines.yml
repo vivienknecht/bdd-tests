@@ -27,7 +27,7 @@ steps:
     goals: 'clean test'
     publishJUnitResults: true
     testResultsFiles: 'target/surefire-reports/cucumber-jvm-result.xml'
-    # options: '-Dcucumber.options="--plugin com.hpe.alm.octane.OctaneCucumberFormatter:results/cucumber/Cucumber.xml"'
+    options: '-Dcucumber.options="--plugin com.hpe.alm.octane.OctaneCucumberFormatter:results/cucumber/Cucumber.xml"'
   continueOnError: true
 
 # - script: |
