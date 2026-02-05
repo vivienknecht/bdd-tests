@@ -11,15 +11,15 @@ pool: Default
 steps:
 - task: octane-start-task-private@1
   inputs:
-    OctaneServiceConnection: 'bddPConnection'
-    WorkspaceList: '3001'
+    OctaneServiceConnection: 'AzurePipelinesServiceConnection'
+    WorkspaceList: '5001'
     CreatePipelineCheckbox: true
 
-- task: octane-test-runner-start-task-private@1
-  inputs:
-    OctaneServiceConnection: 'bddPConnection'
-    WorkspaceList: '3001'
-    Framework: 'bddScenario'
+# - task: octane-test-runner-start-task-private@1
+#   inputs:
+#     OctaneServiceConnection: 'bddPConnection'
+#     WorkspaceList: '3001'
+#     Framework: 'bddScenario'
 
 - task: Maven@4
   inputs:
@@ -40,6 +40,7 @@ steps:
 
 - task: octane-end-task-private@1
   inputs:
-    OctaneServiceConnection: 'bddPConnection'
-    WorkspaceList: '3001'
+    OctaneServiceConnection: 'AzurePipelinesServiceConnection'
+    WorkspaceList: '5001'
+    Framework: 'cucumber'
     CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xml'
