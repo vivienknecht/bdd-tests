@@ -19,8 +19,8 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'clean test'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/cucumber-jvm-result.xml'
+    # publishJUnitResults: true
+    # testResultsFiles: '**/surefire-reports/cucumber-jvm-result.xml'
   continueOnError: true
 
 - script: |
