@@ -27,23 +27,23 @@ steps:
     goals: 'clean test'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/cucumber-jvm-result.xml'
-    options: '-Dcucumber.options="--plugin com.hpe.alm.octane.OctaneCucumberFormatter:results/cucumber/Cucumber.xml"'
+    # options: '-Dcucumber.options="--plugin com.hpe.alm.octane.OctaneCucumberFormatter:results/cucumber/Cucumber.xml"'
   continueOnError: true
 
-# - script: |
-#     echo "Converting BDD results..."
-#     mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run ^
-#       "-DreportFiles=**/target/surefire-reports/*.xml" ^
-#       "-DfeatureFiles=**/src/test/resources/calculator_features/*.feature" ^
-#       "-Dframework=cucumber-jvm" ^
-#       "-DresultFile=target/surefire-reports/cucumber-jvm-result.xml"
-#     echo 
-#   displayName: 'Convert BDD Results'
+- script: |
+    echo "Converting BDD results..."
+    mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run ^
+      "-DreportFiles=**/target/surefire-reports/*.xml" ^
+      "-DfeatureFiles=**/src/test/resources/calculator_features/*.feature" ^
+      "-Dframework=cucumber-jvm" ^
+      "-DresultFile=target/surefire-reports/cucumber-jvm-result.xml"
+    echo 
+  displayName: 'Convert BDD Results'
 
 - task: octane-end-task-private@1
   inputs:
     OctaneServiceConnection: 'bddPConnection'
     WorkspaceList: '1002'
     Framework: 'bddScenario'
-    #CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xml'
-    CucumberReportPath: 'results/cucumber/Cucumber.xml'
+    CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xml'
+    #CucumberReportPath: 'results/cucumber/Cucumber.xml'
