@@ -27,7 +27,7 @@ steps:
     goals: 'clean test'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/cucumber-jvm-result.xml'
-    options: '-Dcucumber.options="--plugin com.hpe.alm.octane.OctaneCucumberFormatter:results/cucumber/Cucumber.xml"'
+    #options: '-Dcucumber.options="--plugin com.hpe.alm.octane.OctaneCucumberFormatter:results/cucumber/Cucumber.xml"'
   continueOnError: true
 
 - script: |
@@ -45,4 +45,4 @@ steps:
     OctaneServiceConnection: 'bddPConnection'
     WorkspaceList: '1002'
     Framework: 'bddScenario'
-    CucumberReportPath: 'results/cucumber'
+    CucumberReportPath: '**/surefire-reports/cucumber-jvm-result.xml'
