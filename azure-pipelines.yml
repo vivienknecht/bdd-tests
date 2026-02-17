@@ -45,4 +45,4 @@ steps:
     OctaneServiceConnection: 'bddPConnection'
     WorkspaceList: '1002'
     Framework: 'bddScenario'
-    CucumberReportPath: '**/surefire-reports/cucumber-jvm-result.xml'
+    CucumberReportPath: 'target/surefire-reports/cucumber-jvm-result.xml'
